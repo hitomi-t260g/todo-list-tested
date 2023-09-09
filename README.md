@@ -1,4 +1,10 @@
-# React + TypeScript + Vite
+# Todo list
+
+## Creating this
+
+![first impression](src/image/first_impression.png)
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
