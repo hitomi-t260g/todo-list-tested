@@ -1,0 +1,35 @@
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+
+  extends: ['standard-with-typescript', 'plugin:react/recommended', 'prettier'],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['react'],
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    // To read environment variables.
+    '@typescript-eslint/no-non-null-assertion': 'off',
+  },
+  ignorePatterns: ['.eslintrc.cjs', 'vite.config.ts', 'vite-env.d.ts', 'vitest-setup.ts'],
+};
