@@ -1,5 +1,6 @@
 import { screen, render } from '@testing-library/react';
 import ShowList from './index';
+import { todos } from '../../mock/todos';
 
 // test('local storageにtodoが何も登録されていない場合リストが表示されない', () => {
 //   render(<ShowList />);
@@ -10,7 +11,7 @@ import ShowList from './index';
 // });
 
 test('local storageにtodoが登録されている場合リストが表示され、チェックボックスにチェックがついていない', () => {
-  render(<ShowList />);
+  render(<ShowList todos={todos}/>);
 
   // モックが必要
   const list = screen.getAllByRole('listitem');
