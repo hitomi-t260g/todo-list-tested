@@ -5,3 +5,16 @@
 h1 {
   text-align: left;
 }
+
+/* .inner-contents {
+  transition:
+    height 0.2s linear,
+    opacity 0.2s ease-in;
+  overflow: hidden;
+  padding: 10px;
+  background-color: whitesmoke;
+} */
+
+.isOpen ::after {
+  transform: rotate(0);
+}

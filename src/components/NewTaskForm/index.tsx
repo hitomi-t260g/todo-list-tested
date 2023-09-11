@@ -1,7 +1,7 @@
 // react-hook-formを利用しないパターン
 import { useState, type FC } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.css';
 
 const NewTaskForm: FC = () => {
@@ -32,7 +32,10 @@ const NewTaskForm: FC = () => {
   return (
     <>
       <div className={styles.wrapper}>
-        <FontAwesomeIcon icon={faWindowClose} />
+        {/* <div className={styles['close-button']}>
+          <FontAwesomeIcon icon={faWindowClose} />
+        </div> */}
+
         <form>
           <label className={styles['form-label']}>
             <p>
