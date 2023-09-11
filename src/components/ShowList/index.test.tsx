@@ -11,9 +11,8 @@ import { todos } from '../../mock/todos';
 // });
 
 test('local storageにtodoが登録されている場合リストが表示され、チェックボックスにチェックがついていない', () => {
-  render(<ShowList todos={todos}/>);
+  render(<ShowList todos={todos} />);
 
-  // モックが必要
   const list = screen.getAllByRole('listitem');
   list.forEach((element) => {
     expect(element).toBeInTheDocument();
