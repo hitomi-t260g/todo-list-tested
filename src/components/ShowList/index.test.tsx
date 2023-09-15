@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react';
-import ShowList from './index';
+import { ShowList } from './index';
 import { todos } from '../../mock/todos';
 
 // test('local storageにtodoが何も登録されていない場合リストが表示されない', () => {

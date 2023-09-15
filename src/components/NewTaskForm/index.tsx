@@ -1,34 +1,34 @@
 // react-hook-formを利用しないパターン
-import { useState, type FC } from 'react';
+import { type FC, type FormEventHandler } from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.css';
+import { type Todos } from '../../types/Todos';
 
-const NewTaskForm: FC = () => {
-  const [newTaskTitle, setNewTaskTitle] = useState('');
-  // descriptionにvalidationをかけたくなったら使う
-  // const [description, setDescription] = useState('');
-  const [newTaskTitleError, setNewTaskTitleError] = useState('');
-  const [valid, setValid] = useState(false);
+interface Props {
+  newTaskTitle: string | undefined;
+  description: string | undefined;
+  valid: boolean;
+  onChangeTaskTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  newTaskTitleError: string | null;
+  onChangeDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
+  todos: Todos[];
+}
 
-  const handleValidate = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (newTaskTitle === '') {
-      setValid(false);
-    } else if (newTaskTitle.length >= 30) {
-      setValid(false);
-      setNewTaskTitleError('タイトルにしては長すぎます。短くしてください');
-    } else {
-      setValid(true);
-    }
-    setNewTaskTitle(e.target.value);
-  };
-  // submit時に何かしたくなったら追加
+export const NewTaskForm: FC<Props> = (props) => {
+  const {
+    newTaskTitle,
+    description,
+    valid = true,
+    onChangeTaskTitle,
+    newTaskTitleError,
+    onChangeDescription,
+    onSubmit,
+  } = props;
 
-  // const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-  //   e.preventDefault();
+  // const latestId = document.querySelectorAll('li').length;
 
-  //   }
-  // };
   return (
     <>
       <div className={styles.wrapper}>
@@ -36,7 +36,7 @@ const NewTaskForm: FC = () => {
           <FontAwesomeIcon icon={faWindowClose} />
         </div> */}
 
-        <form>
+        <form onSubmit={onSubmit}>
           <label className={styles['form-label']}>
             <p>
               new task title<span className={styles['required-label']}>*</span>
@@ -49,7 +49,8 @@ const NewTaskForm: FC = () => {
               type="text"
               placeholder="タイトルを記入してください"
               className={styles['form-input']}
-              onChange={handleValidate}
+              onChange={onChangeTaskTitle}
+              value={newTaskTitle}
             />
           </label>
 
@@ -60,6 +61,8 @@ const NewTaskForm: FC = () => {
               cols={33}
               placeholder="タスク内容を記入してください"
               className={styles['form-textarea']}
+              onChange={onChangeDescription}
+              value={description}
             />
           </label>
           <button type="submit" className={styles['form-submit']} disabled={!valid}>
@@ -70,5 +73,3 @@ const NewTaskForm: FC = () => {
     </>
   );
 };
-
-export default NewTaskForm;

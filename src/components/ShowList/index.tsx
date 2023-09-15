@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.css';
 import { type Todos } from '../../types/Todos';
+import { PulldownStatus } from '../PulldownStatus';
 
 interface Props {
   todos: Todos[];
 }
 
-const ShowList: FC<Props> = (props) => {
+export const ShowList: FC<Props> = (props) => {
   const { todos } = props;
   // const [checked, setChecked] = useState(false);
 
@@ -24,9 +25,14 @@ const ShowList: FC<Props> = (props) => {
           {todos.map((todo, id) => {
             return (
               <li className={styles['list-row']} key={id}>
-                <label className={styles['list-title']}>{todo.title}</label>
+                {todo.status[id] === '3' ? (
+                  <label className={styles['list-title-completed']}>{todo.title}</label>
+                ) : (
+                  <label className={styles['list-title']}>{todo.title}</label>
+                )}
+                {/* <label className={styles['list-title']}>{todo.title}</label> */}
                 <p className={styles['list-status']}>
-                  {todo.status === 1 ? 'not yet' : todo.status === 2 ? 'in progress' : 'completed'}
+                  <PulldownStatus todoStatus={todo.status} />
                 </p>
                 <input
                   type="checkbox"
@@ -43,5 +49,3 @@ const ShowList: FC<Props> = (props) => {
     </>
   );
 };
-
-export default ShowList;

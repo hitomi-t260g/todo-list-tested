@@ -2,5 +2,5 @@ export interface Todos {
   id: number;
   title: string;
   description: string;
-  status: number;
+  status: '1' | '2' | '3';
 }

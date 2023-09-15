@@ -11,6 +11,7 @@ p {
 .delete-button {
   display: flex;
   justify-content: flex-end;
+  margin-right: 24px;
 }
 ul {
   padding: 0px;
@@ -30,6 +31,12 @@ ul {
   flex-basis: 60%;
   text-align: start;
 }
+.list-title-completed {
+  flex-basis: 60%;
+  text-align: start;
+  text-decoration: line-through;
+}
+
 .list-status {
   flex-basis: auto;
 }

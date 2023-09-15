@@ -1,11 +1,50 @@
-// import { useState } from 'react';
-import { useRef, useState } from 'react';
-import { todos } from '../../mock/todos';
-import NewTaskForm from '../NewTaskForm';
-import ShowList from '../ShowList/index';
+import { useRef, useState, type FormEventHandler } from 'react';
+// import { todos } from '../../mock/todos';
+import { NewTaskForm } from '../NewTaskForm';
+import { ShowList } from '../ShowList/index';
 import styles from './index.module.css';
+import { type Todos } from '../../types/Todos';
 
-const TodoList = (): JSX.Element => {
+export const TodoList = (): JSX.Element => {
+  // newTask input
+  const [todos, setTodos] = useState<Todos[]>([]); // グローバルなstateにする、というよりもstateで管理する必要ない気がしてしょうがない,
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [newTaskTitleError, setNewTaskTitleError] = useState('');
+  const [valid, setValid] = useState(false);
+
+  const onChangeTaskTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (newTaskTitle === '') {
+      setValid(false);
+    } else if (newTaskTitle.length >= 30) {
+      setValid(false);
+      setNewTaskTitleError('タイトルにしては長すぎます。短くしてください');
+    } else {
+      setValid(true);
+    }
+    setNewTaskTitle(e.target.value);
+  };
+  const onChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setDescription(e.target.value);
+  };
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (newTaskTitle === '') {
+      return;
+    }
+    const newTodos: Todos = {
+      id: todos.length + 1,
+      title: newTaskTitle,
+      description,
+      status: '1',
+    };
+    setTodos([...todos, newTodos]);
+    setNewTaskTitle('');
+    setDescription('');
+  };
+
+  // 簡易accordion ちょっと表現したいものが違うので後で修正
   const [showContents, setShowContents] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const childElement = useRef<HTMLDivElement>(null);
@@ -17,6 +56,7 @@ const TodoList = (): JSX.Element => {
       setShowContents(!showContents);
     }
   };
+
   return (
     <div className={styles.wrapper}>
       <h1>Todo List</h1>
@@ -30,11 +70,18 @@ const TodoList = (): JSX.Element => {
         }}
         className={styles.innerContents}>
         <div ref={childElement} className={showContents ? 'isOpen' : 'isClose'}>
-          <NewTaskForm />
+          <NewTaskForm
+            onChangeTaskTitle={onChangeTaskTitle}
+            onChangeDescription={onChangeDescription}
+            newTaskTitle={newTaskTitle}
+            description={description}
+            todos={todos}
+            valid={valid}
+            newTaskTitleError={newTaskTitleError}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>
   );
 };
-
-export default TodoList;
