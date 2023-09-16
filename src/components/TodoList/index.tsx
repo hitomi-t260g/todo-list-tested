@@ -7,14 +7,14 @@ import { type Todos } from '../../types/Todos';
 
 export const TodoList = (): JSX.Element => {
   // newTask input
-  const [todos, setTodos] = useState<Todos[]>([]); // グローバルなstateにする、というよりもstateで管理する必要ない気がしてしょうがない,
+  const [todos, setTodos] = useState<Todos[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [description, setDescription] = useState('');
   const [newTaskTitleError, setNewTaskTitleError] = useState('');
   const [valid, setValid] = useState(false);
 
   const onChangeTaskTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (newTaskTitle === '') {
+    if (newTaskTitle === null) {
       setValid(false);
     } else if (newTaskTitle.length >= 30) {
       setValid(false);
@@ -56,30 +56,44 @@ export const TodoList = (): JSX.Element => {
       setShowContents(!showContents);
     }
   };
+  const onClickDelete = (id: number): void => {
+    const newTodos = [...todos];
+    newTodos.splice(id, 1);
+    setTodos(newTodos);
+  };
 
   return (
     <div className={styles.wrapper}>
       <h1>Todo List</h1>
-      <ShowList todos={todos} />
-      <button onClick={onClickAccordionToggle}>{showContents ? '-' : '+'} </button>
+      <div className={styles.container}>
+        <ShowList
+          todos={todos}
+          onClickDelete={(i) => {
+            onClickDelete(i);
+          }}
+        />
+        <button onClick={onClickAccordionToggle} className={styles['add-task-button']}>
+          {showContents ? '-' : '+'}{' '}
+        </button>
 
-      <div
-        style={{
-          height: showContents ? `${contentHeight}px` : '0px',
-          opacity: showContents ? 1 : 0,
-        }}
-        className={styles.innerContents}>
-        <div ref={childElement} className={showContents ? 'isOpen' : 'isClose'}>
-          <NewTaskForm
-            onChangeTaskTitle={onChangeTaskTitle}
-            onChangeDescription={onChangeDescription}
-            newTaskTitle={newTaskTitle}
-            description={description}
-            todos={todos}
-            valid={valid}
-            newTaskTitleError={newTaskTitleError}
-            onSubmit={handleSubmit}
-          />
+        <div
+          style={{
+            height: showContents ? `${contentHeight}px` : '0px',
+            opacity: showContents ? 1 : 0,
+          }}
+          className={styles.innerContents}>
+          <div ref={childElement} className={showContents ? 'isOpen' : 'isClose'}>
+            <NewTaskForm
+              onChangeTaskTitle={onChangeTaskTitle}
+              onChangeDescription={onChangeDescription}
+              newTaskTitle={newTaskTitle}
+              description={description}
+              todos={todos}
+              valid={valid}
+              newTaskTitleError={newTaskTitleError}
+              onSubmit={handleSubmit}
+            />
+          </div>
         </div>
       </div>
     </div>

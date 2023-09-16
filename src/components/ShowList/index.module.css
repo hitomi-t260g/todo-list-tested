@@ -2,6 +2,8 @@
   width: 90vw;
   min-width: 200px;
   max-width: 800px;
+  position: relative;
+  top: 0px;
 }
 
 p {
@@ -9,23 +11,29 @@ p {
 }
 
 .delete-button {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 24px;
+  margin-left: 24px;
+  padding: 8px 20px;
+}
+
+.fa-trash-size {
+  margin: 0px;
+  padding: 0px;
 }
 ul {
   padding: 0px;
 }
 .list-row {
-  display: flex;
-  align-items: center;
-  /* width: 100%; */
-  justify-content: space-between;
   background-color: white;
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 12px;
   font-size: 20px;
+}
+.list-parts {
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .list-title {
   flex-basis: 60%;
@@ -41,9 +49,17 @@ ul {
   flex-basis: auto;
 }
 
-input[type='checkbox'] {
+.list-status :hover {
+  color: red;
+}
+
+.list-description {
+  font-size: 12px;
+  color: gray;
+}
+/* input[type='checkbox'] {
   flex-basis: 54px;
   margin-right: 12px;
   padding: 0;
   transform: scale(1.8);
-}
+} */

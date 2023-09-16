@@ -1,4 +1,5 @@
 export interface Todos {
+  [key: number]: number;
   id: number;
   title: string;
   description: string;

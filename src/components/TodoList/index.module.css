@@ -1,12 +1,21 @@
 .wrapper {
   width: 100%;
+  /* position: fixed; */
+  /* top: 0px;
+  /* left: 0px; */
+}
+
+.container {
+  margin-top: 48px;
 }
 
 h1 {
   text-align: left;
+  position: fixed;
+  top: 0px;
 }
-
-/* .inner-contents {
+/*
+.inner-contents {
   transition:
     height 0.2s linear,
     opacity 0.2s ease-in;
@@ -14,6 +23,12 @@ h1 {
   padding: 10px;
   background-color: whitesmoke;
 } */
+
+.add-task-button {
+  width: 100%;
+  border: none;
+  text-align: center;
+}
 
 .isOpen ::after {
   transform: rotate(0);
