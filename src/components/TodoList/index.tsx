@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 // import { todos } from '../../mock/todos';
 import { NewTaskForm } from '../NewTaskForm';
 import { ShowList } from '../ShowList/index';
+
 import styles from './index.module.css';
 
 import { useFormEventHandler } from '../../Hooks/useFormEventHandler';
@@ -58,7 +59,8 @@ export const TodoList = (): JSX.Element => {
 
   return (
     <div className={styles.wrapper}>
-      {/* {console.log(todos)} */}
+      {console.log(todos)}
+
       <h1>Todo List</h1>
       <div className={styles.container}>
         <ShowList
