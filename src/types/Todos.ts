@@ -1,7 +1,7 @@
 export interface Todos {
   [key: number]: number;
-  id: number;
+  id: string;
   title: string;
   description: string;
-  status: '1' | '2' | '3';
+  status: '0' | '1' | '2';
 }

@@ -1,4 +1,5 @@
 import { useState, type FormEventHandler, useCallback } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { type Todos } from '../types/Todos';
 
 interface Return {
@@ -27,10 +28,10 @@ export const useFormEventHandler = (): Return => {
         return;
       }
       const newTodos: Todos = {
-        id: todos.length + 1, // FIX ME: uuidなど一意の値にしないとtodo削除によりidが重複する
+        id: uuidv4(),
         title: newTaskTitle,
         description,
-        status: '1',
+        status: '0',
       };
       setTodos([...todos, newTodos]);
       setNewTaskTitle('');

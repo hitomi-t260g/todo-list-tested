@@ -13,33 +13,37 @@ interface Props {
 
 export const ShowList: FC<Props> = memo(function showList(props) {
   const { todos, onClickDelete } = props;
+  // const setSelectStatus = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  //   const list = Array.from(document.getElementsByTagName('li'));
+  //   if (e.currentTarget.parentElement?.parentElement === null) {
+  //     return;
+  //   }
+  //   const currentList = e.currentTarget.parentElement?.parentElement.parentElement;
+  //   const idx = list.indexOf(currentList);
+  //   todos[idx].status = e.target.value;
+  // };
 
   return (
     <>
       <div className={styles.wrapper}>
-        {/* <div className={styles['delete-button']}>
-          <button>
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
-        </div> */}
         <ul>
           {todos.map((todo, id) => {
             return (
               <li className={styles['list-row']} key={id}>
                 <div className={styles['list-parts']}>
-                  {/* {todo.status === '3' ? (
+                  {todo.status === '2' ? (
                     <label className={styles['list-title-completed']}>{todo.title}</label>
                   ) : (
                     <label className={styles['list-title']}>{todo.title}</label>
-                  )} */}
-                  <label className={styles['list-title']}>{todo.title}</label>
+                  )}
+                  {/* <label className={styles['list-title']}>{todo.title}</label> */}
                   <p className={styles['list-status']}>
-                    <PulldownStatus status={todo.status} />
+                    <PulldownStatus
+                      status={todo.status}
+                      // onChange={() => setSelectStatus}
+                    />
                   </p>
-                  {/* <input
-                  type="checkbox"
-                  defaultChecked={false}
-                /> */}
+
                   <button
                     className={styles['delete-button']}
                     onClick={() => {

@@ -3,14 +3,15 @@ import styles from './index.module.css';
 
 interface Props {
   status?: string;
+  // setSelectStatus: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export const PulldownStatus: FC<Props> = (props) => {
-  const { status } = props;
+  const { status = '1' } = props;
   const statuses = [
-    { value: '1', label: 'not yet' },
-    { value: '2', label: 'in progress' },
-    { value: '3', label: 'completed' },
+    { value: '0', label: 'not yet' },
+    { value: '1', label: 'in progress' },
+    { value: '2', label: 'completed' },
   ] as const;
 
   return (
@@ -18,9 +19,7 @@ export const PulldownStatus: FC<Props> = (props) => {
       <select
         defaultValue={status}
         className={styles.select}
-        // onChange={(e) => {
-        //   setStatus(e.target.value);
-        // }}
+        // onChange={setSelectStatus}
       >
         {statuses.map((v, i) => (
           <option key={i} value={v.value}>
