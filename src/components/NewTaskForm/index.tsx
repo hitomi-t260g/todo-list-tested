@@ -1,7 +1,6 @@
 // react-hook-formを利用しないパターン
-import { type FC, type FormEventHandler } from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { memo, type FC, type FormEventHandler } from 'react';
+import PropTypes from 'prop-types';
 import styles from './index.module.css';
 import { type Todos } from '../../types/Todos';
 
@@ -16,26 +15,20 @@ interface Props {
   todos: Todos[];
 }
 
-export const NewTaskForm: FC<Props> = (props) => {
+export const NewTaskForm: FC<Props> = memo(function newTaskForm(props) {
   const {
     newTaskTitle,
     description,
-    valid = true,
+    valid = false,
     onChangeTaskTitle,
     newTaskTitleError,
     onChangeDescription,
     onSubmit,
   } = props;
 
-  // const latestId = document.querySelectorAll('li').length;
-
   return (
     <>
       <div className={styles.wrapper}>
-        {/* <div className={styles['close-button']}>
-          <FontAwesomeIcon icon={faWindowClose} />
-        </div> */}
-
         <form onSubmit={onSubmit}>
           <label className={styles['form-label']}>
             <p>
@@ -72,4 +65,15 @@ export const NewTaskForm: FC<Props> = (props) => {
       </div>
     </>
   );
+});
+
+NewTaskForm.propTypes = {
+  newTaskTitle: PropTypes.string,
+  description: PropTypes.string,
+  valid: PropTypes.bool.isRequired,
+  onChangeTaskTitle: PropTypes.func.isRequired,
+  newTaskTitleError: PropTypes.string,
+  onChangeDescription: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired,
 };

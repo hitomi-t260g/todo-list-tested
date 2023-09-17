@@ -1,48 +1,42 @@
-import { useRef, useState, type FormEventHandler } from 'react';
+import { useRef, useState } from 'react';
 // import { todos } from '../../mock/todos';
 import { NewTaskForm } from '../NewTaskForm';
 import { ShowList } from '../ShowList/index';
 import styles from './index.module.css';
-import { type Todos } from '../../types/Todos';
+
+import { useFormEventHandler } from '../../Hooks/useFormEventHandler';
 
 export const TodoList = (): JSX.Element => {
   // newTask input
-  const [todos, setTodos] = useState<Todos[]>([]);
-  const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [description, setDescription] = useState('');
+
   const [newTaskTitleError, setNewTaskTitleError] = useState('');
-  const [valid, setValid] = useState(false);
 
   const onChangeTaskTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (newTaskTitle === null) {
+    if (e.target.value === '') {
       setValid(false);
-    } else if (newTaskTitle.length >= 30) {
+    } else if (e.target.value.length > 30) {
       setValid(false);
       setNewTaskTitleError('タイトルにしては長すぎます。短くしてください');
     } else {
       setValid(true);
+      setNewTaskTitleError('');
     }
     setNewTaskTitle(e.target.value);
   };
   const onChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setDescription(e.target.value);
   };
-
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    if (newTaskTitle === '') {
-      return;
-    }
-    const newTodos: Todos = {
-      id: todos.length + 1,
-      title: newTaskTitle,
-      description,
-      status: '1',
-    };
-    setTodos([...todos, newTodos]);
-    setNewTaskTitle('');
-    setDescription('');
-  };
+  const {
+    todos,
+    setTodos,
+    valid,
+    setValid,
+    newTaskTitle,
+    setNewTaskTitle,
+    description,
+    setDescription,
+    handleSubmit,
+  } = useFormEventHandler();
 
   // 簡易accordion ちょっと表現したいものが違うので後で修正
   const [showContents, setShowContents] = useState(false);
@@ -64,6 +58,7 @@ export const TodoList = (): JSX.Element => {
 
   return (
     <div className={styles.wrapper}>
+      {/* {console.log(todos)} */}
       <h1>Todo List</h1>
       <div className={styles.container}>
         <ShowList
