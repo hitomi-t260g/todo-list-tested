@@ -44,7 +44,7 @@ test('タイトルに30文字を超えて入力するとsubmitボタンが非活
   render(<NewTaskForm {...mockProps} />);
   await user.type(
     screen.getByRole('textbox', { name: 'new task title *' }),
-    'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまq',
+    'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほま',
   );
   const button = screen.getByRole('button', { name: 'submit' });
   await waitFor(() => {

@@ -37,7 +37,7 @@ export const useFormEventHandler = (): Return => {
       setDescription('');
       setValid(false);
     },
-    [newTaskTitle],
+    [newTaskTitle, description],
   );
 
   return {
