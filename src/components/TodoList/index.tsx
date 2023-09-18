@@ -59,7 +59,7 @@ export const TodoList = (): JSX.Element => {
 
   return (
     <div className={styles.wrapper}>
-      {console.log(todos)}
+      {/* {console.log(todos)} */}
 
       <h1>Todo List</h1>
       <div className={styles.container}>
@@ -68,6 +68,7 @@ export const TodoList = (): JSX.Element => {
           onClickDelete={(i) => {
             onClickDelete(i);
           }}
+          setTodos={setTodos}
         />
         <button onClick={onClickAccordionToggle} className={styles['add-task-button']}>
           {showContents ? '-' : '+'}{' '}
