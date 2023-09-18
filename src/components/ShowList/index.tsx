@@ -9,20 +9,23 @@ import { PulldownStatus } from '../PulldownStatus';
 interface Props {
   todos: Todos[];
   onClickDelete: (index: number) => void;
+  setTodos: React.Dispatch<React.SetStateAction<Todos[]>>;
 }
 
 export const ShowList: FC<Props> = memo(function showList(props) {
-  const { todos, onClickDelete } = props;
-  // const setSelectStatus = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-  //   const list = Array.from(document.getElementsByTagName('li'));
-  //   if (e.currentTarget.parentElement?.parentElement === null) {
-  //     return;
-  //   }
-  //   const currentList = e.currentTarget.parentElement?.parentElement.parentElement;
-  //   const idx = list.indexOf(currentList);
-  //   todos[idx].status = e.target.value;
-  // };
+  const { todos, onClickDelete, setTodos } = props;
 
+  const setSelectStatus = (id: string, value: string): void => {
+    setTodos((todos) => {
+      const newTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, status: value as '0' | '1' | '2' };
+        }
+        return todo;
+      });
+      return newTodos;
+    });
+  };
   return (
     <>
       <div className={styles.wrapper}>
@@ -40,7 +43,9 @@ export const ShowList: FC<Props> = memo(function showList(props) {
                   <p className={styles['list-status']}>
                     <PulldownStatus
                       status={todo.status}
-                      // onChange={() => setSelectStatus}
+                      onChange={(e) => {
+                        setSelectStatus(todo.id, e.target.value);
+                      }}
                     />
                   </p>
 
@@ -68,4 +73,5 @@ export const ShowList: FC<Props> = memo(function showList(props) {
 ShowList.propTypes = {
   todos: PropTypes.array.isRequired,
   onClickDelete: PropTypes.func.isRequired,
+  setTodos: PropTypes.func.isRequired,
 };
