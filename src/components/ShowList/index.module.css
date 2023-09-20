@@ -43,6 +43,7 @@ ul {
   flex-basis: 60%;
   text-align: start;
   text-decoration: line-through;
+  color: gray;
 }
 
 .list-status {

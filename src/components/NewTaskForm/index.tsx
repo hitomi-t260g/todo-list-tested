@@ -32,7 +32,7 @@ export const NewTaskForm: FC<Props> = memo(function newTaskForm(props) {
         <form onSubmit={onSubmit}>
           <label className={styles['form-label']}>
             <p>
-              new task title<span className={styles['required-label']}>*</span>
+              new task title<span className={styles['required-label']}>*required</span>
               {newTaskTitleError != null && (
                 <span className={styles.error}>{newTaskTitleError}</span>
               )}
@@ -40,7 +40,7 @@ export const NewTaskForm: FC<Props> = memo(function newTaskForm(props) {
 
             <input
               type="text"
-              placeholder="タイトルを記入してください"
+              placeholder="input some task title"
               className={styles['form-input']}
               onChange={onChangeTaskTitle}
               value={newTaskTitle}
@@ -52,7 +52,7 @@ export const NewTaskForm: FC<Props> = memo(function newTaskForm(props) {
             <textarea
               rows={5}
               cols={33}
-              placeholder="タスク内容を記入してください"
+              placeholder="input some description..."
               className={styles['form-textarea']}
               onChange={onChangeDescription}
               value={description}
