@@ -1,17 +1,16 @@
-import { useRef, useState } from 'react';
-// import { todos } from '../../mock/todos';
+import { useState } from 'react';
 import { NewTaskForm } from '../NewTaskForm';
 import { ShowList } from '../ShowList/index';
 
 import styles from './index.module.css';
 
 import { useFormEventHandler } from '../../Hooks/useFormEventHandler';
+import { Accordion } from '../Accordion';
 
 export const TodoList = (): JSX.Element => {
-  // newTask input
-
   const [newTaskTitleError, setNewTaskTitleError] = useState('');
 
+  // task titleのバリデーションと入力値の取得
   const onChangeTaskTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.value === '') {
       setValid(false);
@@ -24,9 +23,13 @@ export const TodoList = (): JSX.Element => {
     }
     setNewTaskTitle(e.target.value);
   };
+
+  // task descriptionの取得
   const onChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setDescription(e.target.value);
   };
+
+  // useForm EventHandlerを呼び出す
   const {
     todos,
     setTodos,
@@ -39,18 +42,7 @@ export const TodoList = (): JSX.Element => {
     handleSubmit,
   } = useFormEventHandler();
 
-  // 簡易accordion ちょっと表現したいものが違うので後で修正
-  const [showContents, setShowContents] = useState(false);
-  const [contentHeight, setContentHeight] = useState(0);
-  const childElement = useRef<HTMLDivElement>(null);
-
-  const onClickAccordionToggle = (): void => {
-    if (childElement.current !== null) {
-      const childHeight: number = childElement.current?.clientHeight; // 対象要素の高さの取得
-      setContentHeight(childHeight);
-      setShowContents(!showContents);
-    }
-  };
+  // 削除ボタン押下時の処理
   const onClickDelete = (id: number): void => {
     const newTodos = [...todos];
     newTodos.splice(id, 1);
@@ -59,8 +51,6 @@ export const TodoList = (): JSX.Element => {
 
   return (
     <div className={styles.wrapper}>
-      {/* {console.log(todos)} */}
-
       <h1>Todo List</h1>
       <div className={styles.container}>
         <ShowList
@@ -70,29 +60,18 @@ export const TodoList = (): JSX.Element => {
           }}
           setTodos={setTodos}
         />
-        <button onClick={onClickAccordionToggle} className={styles['add-task-button']}>
-          {showContents ? '-' : '+'}{' '}
-        </button>
-
-        <div
-          style={{
-            height: showContents ? `${contentHeight}px` : '0px',
-            opacity: showContents ? 1 : 0,
-          }}
-          className={styles.innerContents}>
-          <div ref={childElement} className={showContents ? 'isOpen' : 'isClose'}>
-            <NewTaskForm
-              onChangeTaskTitle={onChangeTaskTitle}
-              onChangeDescription={onChangeDescription}
-              newTaskTitle={newTaskTitle}
-              description={description}
-              todos={todos}
-              valid={valid}
-              newTaskTitleError={newTaskTitleError}
-              onSubmit={handleSubmit}
-            />
-          </div>
-        </div>
+        <Accordion>
+          <NewTaskForm
+            onChangeTaskTitle={onChangeTaskTitle}
+            onChangeDescription={onChangeDescription}
+            newTaskTitle={newTaskTitle}
+            description={description}
+            todos={todos}
+            valid={valid}
+            newTaskTitleError={newTaskTitleError}
+            onSubmit={handleSubmit}
+          />
+        </Accordion>
       </div>
     </div>
   );
