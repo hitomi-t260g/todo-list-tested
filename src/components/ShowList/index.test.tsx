@@ -4,14 +4,14 @@ import { ShowList } from './index';
 import { todos } from '../../mock/todos';
 
 test('todoが何も登録されていない場合リストが表示されない', () => {
-  render(<ShowList todos={[]} onClickDelete={vi.fn} />);
+  render(<ShowList todos={[]} onClickDelete={vi.fn()} setTodos={vi.fn()} />);
 
   const list = screen.queryByRole('listitem');
   expect(list).not.toBeInTheDocument();
 });
 
 test('todoが登録されている場合、それぞれのstatusでリストが表示される', () => {
-  render(<ShowList todos={todos} onClickDelete={vi.fn()} />);
+  render(<ShowList todos={todos} onClickDelete={vi.fn()} setTodos={vi.fn()} />);
 
   const list = screen.getAllByRole('listitem');
   list.forEach((element) => {

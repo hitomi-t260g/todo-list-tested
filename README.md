@@ -2,7 +2,7 @@
 
 ## Creating this
 
-![first impression](src/image/first_impression.png)
+![after impression](src/image/after_impression.png)
 
 ## React + TypeScript + Vite
 
