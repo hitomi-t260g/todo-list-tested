@@ -17,10 +17,10 @@ test('form初期表示時、各フォームのplaceholderが表示され、submi
   };
   render(<NewTaskForm {...mockProps} />);
 
-  const newTaskTitle = screen.getByPlaceholderText('タイトルを記入してください');
+  const newTaskTitle = screen.getByPlaceholderText('input some task title');
   expect(newTaskTitle).toBeInTheDocument();
 
-  const description = screen.getByPlaceholderText('タスク内容を記入してください');
+  const description = screen.getByPlaceholderText('input some description...');
   expect(description).toBeInTheDocument();
 
   const button = screen.getByRole('button', { name: 'submit' });
@@ -43,7 +43,7 @@ test('タイトルに30文字を超えて入力するとsubmitボタンが非活
 
   render(<NewTaskForm {...mockProps} />);
   await user.type(
-    screen.getByRole('textbox', { name: 'new task title *' }),
+    screen.getByRole('textbox', { name: 'new task title *required' }),
     'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほま',
   );
   const button = screen.getByRole('button', { name: 'submit' });
