@@ -39,7 +39,7 @@ export const ShowList: FC<Props> = memo(function showList(props) {
                   ) : (
                     <label className={styles['list-title']}>{todo.title}</label>
                   )}
-                  {/* <label className={styles['list-title']}>{todo.title}</label> */}
+
                   <p className={styles['list-status']}>
                     <PulldownStatus
                       status={todo.status}
@@ -69,7 +69,7 @@ export const ShowList: FC<Props> = memo(function showList(props) {
   );
 });
 
-// memo化するとprop-typeのeslintに引っかかるため、すべてのpropsに再度型指定する(ちょっと不毛な気がする)
+// memo化するとprop-typeのeslintに引っかかるため、すべてのpropsに再度型指定する
 ShowList.propTypes = {
   todos: PropTypes.array.isRequired,
   onClickDelete: PropTypes.func.isRequired,
